@@ -1,10 +1,10 @@
 # ij-open-data
 
 
-[![Pipeline status](https://gitlab.com/strayMat/ij-open-data/badges/main/pipeline.svg)](https://gitlab.com/strayMat/ij-open-data/-/pipelines)
-[![Coverage report](https://gitlab.com/strayMat/ij-open-data/badges/main/coverage.svg)](https://gitlab.com/strayMat/ij-open-data/-/graphs/main)
-[![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://strayMat.gitlab.io/ij-open-data/)
-[![License](https://img.shields.io/gitlab/license/strayMat/ij-open-data)](https://gitlab.com/strayMat/ij-open-data/-/blob/main/LICENSE)
+[![Pipeline status](https://github.com/strayMat/ij-open-data/badges/main/pipeline.svg)](https://github.com/strayMat/ij-open-data/-/pipelines)
+[![Coverage report](https://github.com/strayMat/ij-open-data/badges/main/coverage.svg)](https://github.com/strayMat/ij-open-data/-/graphs/main)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://strayMat.github.io/ij-open-data/)
+[![License](https://img.shields.io/github/license/strayMat/ij-open-data)](https://github.com/strayMat/ij-open-data/-/blob/main/LICENSE)
 
 
 
