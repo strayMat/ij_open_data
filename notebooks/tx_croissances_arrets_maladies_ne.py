@@ -1,9 +1,11 @@
-# %% 
+# %%
 # Croissances et arrêts de maladies aux Pays-Bas, données CBS
-import pandas as pd
 import re
 from io import StringIO
-# %% 
+
+import pandas as pd
+
+# %%
 # Données néérlandaises, @CBS2025
 raw = """;Ziekteverzuim
 2e kwartaal 2015;3,7
@@ -51,7 +53,9 @@ raw = """;Ziekteverzuim
 
 # Charger les données comme CSV
 df = pd.read_csv(StringIO(raw), sep=";")
-# %% 
+
+
+# %%
 # Nettoyage éventuel des nombres (remplacer virgules -> points, supprimer texte)
 def clean_num(x):
     if pd.isna(x):
@@ -61,12 +65,13 @@ def clean_num(x):
     x = re.sub(r"[^0-9\.]+", "", x)
     return float(x) if x != "" else None
 
+
 for col in df.columns[1:]:
     df[col] = df[col].apply(clean_num)
 
 # Créer un index temporel
 quarters = []
-for label in df.iloc[:,0]:
+for label in df.iloc[:, 0]:
     match = re.search(r"(\d{4})", label)
     year = int(match.group(1)) if match else None
     if "1e" in label:
@@ -88,7 +93,7 @@ for col in df.columns[1:]:
     df[f"{col}_QoQ"] = df[col].pct_change(1) * 100
 
 print(df.tail(10))
-# %% 
-#retain only Q1
+# %%
+# retain only Q1
 df_q1 = df[df.index.quarter == 4]
 print(df_q1)

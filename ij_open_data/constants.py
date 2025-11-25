@@ -10,7 +10,7 @@ DIR2RAW_IJ = DIR2DATA / "ij_cnam" / "raw"
 DIR2CLEAN_IJ = DIR2DATA / "ij_cnam" / "clean"
 
 # images
-DIR2IMG = DIR2ROOT / "reports"/ "img"
+DIR2IMG = DIR2ROOT / "reports" / "img"
 DIR2IMG_CNAM = DIR2IMG / "cnam_open_data"
 
 # results

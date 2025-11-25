@@ -16,12 +16,12 @@ LABEL_NB_JOURS = "Nombre de jours d'arrêt\n(en millions)"
 
 
 def get_links_from_main_page(base_url):
-    resp = requests.get(base_url)
+    resp = requests.get(base_url)  # noqa: S113
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     links = []
     for a in soup.find_all("a", href=True):
-        href = a["href"]  # type: ignore
+        href = a["href"]  # type: ignore  # noqa: PGH003
         # On ne garde que les liens internes pertinents
         if href.startswith("/etudes-et-donnees/") and "ij" in href:
             full_url = urljoin(base_url, href)
@@ -30,11 +30,11 @@ def get_links_from_main_page(base_url):
 
 
 def find_xlsx_url_in_page(url):
-    resp = requests.get(url)
+    resp = requests.get(url)  # noqa: S113
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     for a in soup.find_all("a", href=True):
-        href = a["href"]  # type: ignore
+        href = a["href"]  # type: ignore  # noqa: PGH003
         if ".xlsx" in href:
             return urljoin(url, href)
     return None
@@ -46,7 +46,7 @@ def download_xlsx(xlsx_url, dest_dir):
     if os.path.exists(dest_path):
         print(f"Déjà téléchargé : {filename}")
         return
-    resp = requests.get(xlsx_url)
+    resp = requests.get(xlsx_url)  # noqa: S113
     resp.raise_for_status()
     with open(dest_path, "wb") as f:
         f.write(resp.content)
@@ -73,9 +73,7 @@ def scrap_ameli_for_ij():
             print("  Aucun fichier .xlsx trouvé sur cette page.")
 
 
-def clean_melt_df(
-    df, id_vars, type_ij, unit_label, var_name="Année", value_name="value"
-):
+def clean_melt_df(df, id_vars, type_ij, unit_label, var_name="Année", value_name="value"):
     """Transforme le DataFrame de l'open data au format (catégoris, année) en un format long (catégorie, ). Nettoie et convertis en unité lisibles les valeurs des IJ.
 
     Args:
@@ -93,9 +91,7 @@ def clean_melt_df(
     df_tidy["Type IJ"] = type_ij
     df_tidy["unit"] = unit_label
     if unit_label == LABEL_MNT:
-        df_tidy["value"] = (
-            df_tidy["value"] / 1_000_000_000
-        )  # convertir en millions d'euros:
+        df_tidy["value"] = df_tidy["value"] / 1_000_000_000  # convertir en millions d'euros:
     elif unit_label == LABEL_NB_ARR:
         df_tidy["value"] = df_tidy["value"] / 1_000  # convertir en milliers:
     elif unit_label == LABEL_NB_JOURS:
@@ -127,8 +123,7 @@ def clean_data_cnam():
         ]:
             # print(f"  - {unit_label} / {sheet_name}")
             df = pd.read_excel(
-                DIR2RAW_IJ
-                / f"{start_year}-a-2023_ij-{type_ij}-selon-age_serie-annuelle.xlsx",
+                DIR2RAW_IJ / f"{start_year}-a-2023_ij-{type_ij}-selon-age_serie-annuelle.xlsx",
                 sheet_name=sheet_name,
                 skiprows=7,
             )
@@ -146,9 +141,7 @@ def clean_data_cnam():
     sexe_list = ["femmes", "hommes"]
     all__ij_sexe_list = []
     for sexe in sexe_list:
-        print(
-            f"Charge et transforme les données IJ de maladie-hors-derogatoires selon l'âge et le sexe: {sexe}"
-        )
+        print(f"Charge et transforme les données IJ de maladie-hors-derogatoires selon l'âge et le sexe: {sexe}")
         # Chargement des données
         for unit_label, sheet_name in [
             (LABEL_NB_ARR, "tous Nb arr, f(âge)"),
@@ -156,8 +149,7 @@ def clean_data_cnam():
             (LABEL_MNT, "tous Mnt, f(âge)"),
         ]:
             df = pd.read_excel(
-                DIR2RAW_IJ
-                / f"2009-a-2023_ij-maladie-hors-derogatoires-selon-age-{sexe}_serie-annuelle.xlsx",
+                DIR2RAW_IJ / f"2009-a-2023_ij-maladie-hors-derogatoires-selon-age-{sexe}_serie-annuelle.xlsx",
                 sheet_name=sheet_name,
                 skiprows=7,
             )
@@ -187,8 +179,7 @@ def clean_data_cnam():
         ]:
             # print(f"  - {unit_label} / {sheet_name}")
             df = pd.read_excel(
-                DIR2RAW_IJ
-                / f"2014-a-2023_ij-{type_ij}-selon-code-naf-employeur_serie-annuelle.xlsx",
+                DIR2RAW_IJ / f"2014-a-2023_ij-{type_ij}-selon-code-naf-employeur_serie-annuelle.xlsx",
                 sheet_name=sheet_name,
                 skiprows=7,
             )
@@ -213,8 +204,7 @@ def clean_data_cnam():
     ]:
         # print(f"  - {unit_label} / {sheet_name}")
         df = pd.read_excel(
-            DIR2RAW_IJ
-            / "2009-a-2023_ij-maladie-hors-derogatoires-selon-region_serie-annuelle.xlsx",
+            DIR2RAW_IJ / "2009-a-2023_ij-maladie-hors-derogatoires-selon-region_serie-annuelle.xlsx",
             sheet_name=sheet_name,
             skiprows=7,
         )

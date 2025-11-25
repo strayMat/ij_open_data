@@ -46,7 +46,7 @@ jobs:
           python-version: 3.12
 
       - name: Run tests
-        run: uv run python -m pytest tests 
+        run: uv run python -m pytest tests
 
       - name: Check typing
         run: uv run mypy
