@@ -341,8 +341,9 @@ all_growth_rates.round(2).to_csv(DIR2RESULTS / "mean_growth_rate_arret_maladie_t
 all_growth_rates
 # %%}")
 #
-# taux de croissance des bénéficiaires
-# Valeurs de 2010 à 2019 extraites du fichier : 2009-a-2023_ij-maladie-hors-derogatoires-selon-age_serie-annuelle.xlsx
+# taux de croissance pour les arrêts maladies:
+# Valeurs de 2010 à 2019 extraites du fichier : 2009-a-2023_ij-maladie-hors-derogatoires-selon-age_serie-annuelle.xlsx, onglet Graph2.
+
 nb_beneficiaires = [4592431, 4700234, 4607437, 4691446, 4582189, 4773240, 4868392, 4928043, 5035167, 5078020]
 nb_jours_arrets = [
     200567081,
